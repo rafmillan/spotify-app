@@ -1,6 +1,6 @@
 import React from "react"
 import ButtonGroup from "./ButtonGroup";
-import "../style.css"
+import "../styles/TopList.css"
 
 export default function ListView({title, list, image, buttonHandler}) {
     const buttons = [
@@ -9,8 +9,8 @@ export default function ListView({title, list, image, buttonHandler}) {
         { label: "long term" },
     ];
 
-    function handleButtonClick(index) {
-        buttonHandler(index)
+    function handleButtonClick(button) {
+        buttonHandler(button)
     }
 
 	return (

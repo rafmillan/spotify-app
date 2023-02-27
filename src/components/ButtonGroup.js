@@ -1,27 +1,38 @@
 import React from "react";
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
+import "../styles/ButtonGroup.css";
 
 export default function ButtonGroup(props) {
     ButtonGroup.defaultProps = {
-        onButtonClick: () => {},
-    }
+        onButtonClick: () => { },
+    };
     const { buttons, onButtonClick } = props;
-    
-    const [lastClickedButtonIndex, setLastClickedButtonIndex] = useState(null);
+    const [activeButton, setActiveButton] = useState(null);
 
-    function handleClick(buttonIndex) {
-        onButtonClick(buttonIndex);
-        setLastClickedButtonIndex(buttonIndex);
+    const handleClick = (index) => {
+        setActiveButton(index)
+        onButtonClick(index);
     }
+
+    useEffect(() => {
+        if (activeButton === null){
+            setActiveButton(0)
+        }
+    }, [activeButton])
 
     return (
         <div className="button-group">
-        {buttons.map((button, index) => (
-            <button key={index} onClick={() => handleClick(index)}
-            className={lastClickedButtonIndex === index ? "active" : ""}>
-                {button.label}
-            </button>
-        ))}
+            {buttons.map((button, index) => (
+                <button
+                    key={index}
+                    onClick={() => handleClick(index)}
+                    className={index === activeButton ? "current" : ""}
+                >
+                    {button.label}
+                </button>
+            ))}
         </div>
     );
 }
+
+

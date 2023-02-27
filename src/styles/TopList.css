@@ -1,0 +1,10 @@
+.top-list,
+.top-list > li {
+    list-style-position: inside;
+    margin: auto;
+    margin-left: -40px;
+    width: 400px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

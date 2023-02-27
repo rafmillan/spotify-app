@@ -1,0 +1,7 @@
+.header {
+    text-align: center;
+    margin: auto;
+    padding: 10px 5px;
+    min-height: 50px;
+    font-size: calc(70px + 2vmin);
+}

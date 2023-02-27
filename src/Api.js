@@ -1,31 +1,30 @@
 import axios from "axios"
+import { BASE_URL } from "./consts"
 
-export const fetchUser = (token, setter) =>  {
-    axios.get("https://api.spotify.com/v1/me", {
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            
-        }
-    }).then(response => {
-        setter(response.data)
-    }).catch((err) => console.log(err))
+export async function fetchUser(token) {
+    try {
+        const response = await axios.get(`${BASE_URL}/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        throw error;
+    }
 }
 
-export const fetchTopSongs = (token, count, setter, timeRange) => {
-    console.log(timeRange)
-    axios.get("https://api.spotify.com/v1/me/top/tracks", {
-        params:{
-            limit: count,
-            time_range: timeRange
-        },
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        }
-    }).then(response => {
-        setter(response.data.items)
-    }).catch(((err) => console.log(err)))
+export async function fetchTopSongs(token, limit = 10, timeRange = 'short_term') {
+    try {
+        const response = await axios.get(`${BASE_URL}/me/top/tracks?limit=${limit}&time_range=${timeRange}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data.items;
+    } catch (error) {
+        console.error('Error fetching top songs:', error);
+        throw error;
+    }
 }

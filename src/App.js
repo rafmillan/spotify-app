@@ -1,36 +1,50 @@
 import React from "react"
 import Header from "./components/Header"
 import Dashboard from "./components/Dashboard"
-import Login from "./components/Login"
+import LoginButton from "./components/LoginButton"
 import Footer from "./components/Footer"
-import "./style.css"
+import { CLIENT_ID, REDIRECT_URI, AUTH_ENDPOINT, RESPONSE_TYPE } from "./consts"
+import "./styles/App.css"
 
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
+function useLocalStorage(key, initialValue) {
+    const [storedValue, setStoredValue] = useState(() => {
+        try {
+            const item = window.localStorage.getItem(key)
+            return item ? JSON.parse(item) : initialValue
+        } catch (error) {
+            console.log(error)
+            return initialValue
+        }
+    })
 
-const CLIENT_ID = "6473932552584932a3ec9920a5d48230"
-const REDIRECT_URI = "http://localhost:3000"
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const RESPONSE_TYPE = "token"
+    const setValue = (value) => {
+        try {
+            const valueToStore = value instanceof Function ? value(storedValue) : value
+            setStoredValue(valueToStore)
+            window.localStorage.setItem(key, JSON.stringify(valueToStore))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return [storedValue, setValue]
+}
 
 export default function App() {
-    const [token, setToken] = useState("")
+    const [token, setToken] = useLocalStorage("token", "")
 
     useEffect(() => {
         const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
-
         if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+            const newToken = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+            setToken(newToken)
             window.location.hash = ""
-            window.localStorage.setItem("token", token)
         }
-        console.log(token)
-        setToken(token)
-    }, [])
+    }, [setToken, token])
 
     const logout = () => {
         setToken("")
-        window.localStorage.removeItem("token")
         window.localStorage.removeItem("user")
         window.localStorage.removeItem("topSongs")
     }
@@ -40,18 +54,18 @@ export default function App() {
             {!token ?
                 <div>
                     <Header />
-                    <Login 
-                        auth_endpoint={AUTH_ENDPOINT}
-                        client_id={CLIENT_ID}
-                        redirect_uri={REDIRECT_URI}
-                        response_type={RESPONSE_TYPE}
+                    <LoginButton
+                        endpoint={AUTH_ENDPOINT}
+                        clientId={CLIENT_ID}
+                        redirectUri={REDIRECT_URI}
+                        responseType={RESPONSE_TYPE}
                     />
                     <Footer />
-                </div>:
+                </div> :
                 <div>
                     <Header />
-                    <Dashboard token={token}/>
-                    <button className="button-1" onClick={logout}>back</button>
+                    <Dashboard token={token} />
+                    <button className="logout-button" onClick={logout}>back</button>
                     <Footer />
                 </div>
             }

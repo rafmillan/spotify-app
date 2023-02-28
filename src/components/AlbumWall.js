@@ -1,8 +1,8 @@
 import React from "react";
 import ButtonGroup from "./ButtonGroup";
-import "../styles/ImageGrid.css"
+import "../styles/AlbumWall.css"
 
-const ImageGrid = ({ title, songs , buttonHandler}) => {
+const AlbumWall = ({ title, songs, buttonHandler }) => {
     const buttons = [
         { label: "short term" },
         { label: "medium term" },
@@ -12,7 +12,7 @@ const ImageGrid = ({ title, songs , buttonHandler}) => {
     function handleButtonClick(button) {
         buttonHandler(button)
     }
-    
+
     return (
         <div>
             <h5 className="grid-view-title">{title}</h5>
@@ -20,15 +20,15 @@ const ImageGrid = ({ title, songs , buttonHandler}) => {
                 <ButtonGroup buttons={buttons} onButtonClick={handleButtonClick} />
             </div>
             <div className="image-grid">
-            {songs.map((song, index) => (
-                <div className="image" key={index}>
-                    <img src={song.album.images[1].url} alt={song.album.images[1].url} />
-                    <div className="image-text">{song.name.toLowerCase()}</div>
-                </div>
-            ))}
-        </div>
+                {songs.map((song, index) => (
+                    <div className="image" key={index}>
+                        <img src={song.album.images[1].url} alt={song.album.images[1].url} />
+                        <div className="image-text">{song.name.toLowerCase()}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
-export default ImageGrid;
+export default AlbumWall;

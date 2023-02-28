@@ -42,3 +42,18 @@ export async function fetchTopArtists(token, limit = 10, timeRange = 'short_term
         throw error;
     }
 }
+
+export async function fetchTopData(token, limit = 5, timeRange = 'short_term') {
+    try {
+        const response = await axios.get(`${BASE_URL}/me/top/artists?limit=${limit}&time_range=${timeRange}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data.items;
+    } catch (error) {
+        console.error('Error fetching top songs:', error);
+        throw error;
+    }
+}

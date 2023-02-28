@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { fetchTopSongs, fetchUser, fetchTopArtists, fetchTopData} from "../Api";
 import ListView from "./TopList";
-import ImageGrid from "./ImageGrid";
-import "../styles/Dashboard.css";
+import AlbumWall from "./AlbumWall";
+import Data from "./Data"
 
-import { fetchTopSongs, fetchUser, fetchTopArtists} from "../Api";
+import "../styles/Dashboard.css"
 
 const artistCount = 10;
 const songCount = 12;
@@ -17,6 +18,8 @@ function getTimeRange(index) {
     let term = "short_term";
     if (index === undefined) {
         index = 0;
+        console.log("index was undefined");
+        return
     }
     switch (index) {
         case 1:
@@ -29,7 +32,6 @@ function getTimeRange(index) {
             term = "short_term";
             break;
     }
-    console.log("changing to " + term);
     return term;
 }
 
@@ -37,17 +39,28 @@ export default function Dashboard({ token }) {
     const [user, setUser] = useState(defaultUser);
     const [topSongs, setTopSongs] = useState(defaultSongs);
     const [topArtists, setTopArtists] = useState(defaultArtists);
-    const [timeRangeSongs, setTimeRangeSongs] = useState(getTimeRange());
-    const [timeRangeArtists, setTimeRangeArtists] = useState(getTimeRange());
+    const [topData, setTopData] = useState(defaultArtists);
+    const [timeRangeSongs, setTimeRangeSongs] = useState(getTimeRange(0));
+    const [timeRangeArtists, setTimeRangeArtists] = useState(getTimeRange(0));
+    const [timeRangeData, setTimeRangeData] = useState(getTimeRange(0));
 
     function handleSongsClick(index) {
+        if (index !== undefined){ 
         setTimeRangeSongs(getTimeRange(index));
+        }
     }
 
     function handleArtistsClick(index) {
+        if (index !== undefined){ 
         setTimeRangeArtists(getTimeRange(index));
+        }
     }
 
+    function handleDataClick(index) {
+        if (index !== undefined){ 
+        setTimeRangeData(getTimeRange(index));
+        }
+    }
     useEffect(() => {
         if (!token) {
             console.log("no token!")
@@ -55,19 +68,21 @@ export default function Dashboard({ token }) {
           }
         
           const fetchData = async () => {
-            const [userData, topSongsData, topArtistsData] = await Promise.all([
+            const [userData, topSongsData, topArtistsData, topData] = await Promise.all([
               fetchUser(token),
               fetchTopSongs(token, songCount, timeRangeSongs),
-              fetchTopArtists(token, artistCount, timeRangeArtists)
+              fetchTopArtists(token, artistCount, timeRangeArtists),
+              fetchTopData(token, 6, timeRangeData)
             ]);
         
             setUser(userData);
             setTopSongs(topSongsData);
             setTopArtists(topArtistsData)
+            setTopData(topData)
           };
         
           fetchData();
-    }, [token, timeRangeSongs, timeRangeArtists])
+    }, [token, timeRangeSongs, timeRangeArtists, timeRangeData])
 
     return (
         <div>
@@ -80,10 +95,15 @@ export default function Dashboard({ token }) {
                     image={user.images ? user.images[0].url : defaultImage}
                     buttonHandler={handleArtistsClick}
                 />
-                <ImageGrid
+                <AlbumWall
                     title="your favourites"
                     songs={topSongs}
                     buttonHandler={handleSongsClick}
+                />
+                <Data
+                    title="your genre breakdown"
+                    artists={topData}
+                    buttonHandler={handleDataClick}
                 />
             </nav>
         </div>

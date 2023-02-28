@@ -12,13 +12,11 @@ nav > img {
     margin-top: 120px;
     margin-left: 30px;
     border-radius: 15px;
-    box-shadow: 0px 0px 5px #F1E4CD;
     color: none;
 }
 
 nav > img:hover {
-    filter: brightness(33%);
-    -webkit-filter: brightness(33%);
+    box-shadow: 0px 0px 5px #DAADC1;
 }
 
 .container {
@@ -53,15 +51,5 @@ nav > img:hover {
     font-size: 30px;
     font-weight: 400;
     letter-spacing: 0.1em;
-}
-
-.list-view-title {
-    padding: auto;
-    margin: auto;
-    margin-top: 45px;
-    margin-bottom: 20px;
-    margin-left: -30px;
-    width: 400px;
-    font-size: 45px;
 }
 

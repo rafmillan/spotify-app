@@ -7,6 +7,7 @@ import { CLIENT_ID, REDIRECT_URI, AUTH_ENDPOINT, RESPONSE_TYPE } from "./consts"
 import "./styles/App.css"
 
 import { useEffect, useState } from "react"
+
 function useLocalStorage(key, initialValue) {
     const [storedValue, setStoredValue] = useState(() => {
         try {
@@ -47,6 +48,7 @@ export default function App() {
         setToken("")
         window.localStorage.removeItem("user")
         window.localStorage.removeItem("topSongs")
+        window.localStorage.removeItem("topArtists")
     }
 
     return (

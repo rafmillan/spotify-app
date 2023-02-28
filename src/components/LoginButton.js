@@ -15,7 +15,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { USER_TOP_READ} from "../consts"
-import "../styles/Login.css"
+import "../styles/LoginButton.css"
 
 const  LoginButton = ({ endpoint, clientId, redirectUri, responseType }) => {
   const loginUrl = `${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${USER_TOP_READ}&response_type=${responseType}`

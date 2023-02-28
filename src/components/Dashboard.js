@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ListView from "./TopList";
+import ImageGrid from "./ImageGrid";
 import "../styles/Dashboard.css";
 
-import { fetchTopSongs, fetchUser } from "../Api";
+import { fetchTopSongs, fetchUser, fetchTopArtists} from "../Api";
 
-const count = 10;
+const artistCount = 10;
+const songCount = 12;
 const defaultUser = { display_name: "default" };
 const defaultSongs = [];
+const defaultArtists = []
 const defaultImage =
     "https://images.unsplash.com/photo-1589251204996-3367cc27f084?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3F1YXJlJTIwaW1hZ2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60";
 
@@ -33,10 +36,16 @@ function getTimeRange(index) {
 export default function Dashboard({ token }) {
     const [user, setUser] = useState(defaultUser);
     const [topSongs, setTopSongs] = useState(defaultSongs);
-    const [timeRange, setTimeRange] = useState(getTimeRange());
+    const [topArtists, setTopArtists] = useState(defaultArtists);
+    const [timeRangeSongs, setTimeRangeSongs] = useState(getTimeRange());
+    const [timeRangeArtists, setTimeRangeArtists] = useState(getTimeRange());
 
-    function handleButtonClick(index) {
-        setTimeRange(getTimeRange(index));
+    function handleSongsClick(index) {
+        setTimeRangeSongs(getTimeRange(index));
+    }
+
+    function handleArtistsClick(index) {
+        setTimeRangeArtists(getTimeRange(index));
     }
 
     useEffect(() => {
@@ -46,17 +55,19 @@ export default function Dashboard({ token }) {
           }
         
           const fetchData = async () => {
-            const [userData, topSongsData] = await Promise.all([
+            const [userData, topSongsData, topArtistsData] = await Promise.all([
               fetchUser(token),
-              fetchTopSongs(token, count, timeRange)
+              fetchTopSongs(token, songCount, timeRangeSongs),
+              fetchTopArtists(token, artistCount, timeRangeArtists)
             ]);
         
             setUser(userData);
             setTopSongs(topSongsData);
+            setTopArtists(topArtistsData)
           };
         
           fetchData();
-    }, [token, timeRange])
+    }, [token, timeRangeSongs, timeRangeArtists])
 
     return (
         <div>
@@ -64,12 +75,16 @@ export default function Dashboard({ token }) {
                 <h3>welcome, {user.display_name}</h3>
                 <h4>visualize your music taste using AI</h4>
                 <ListView
-                    title="your top songs"
-                    list={topSongs}
+                    title="your top artists"
+                    list={topArtists}
                     image={user.images ? user.images[0].url : defaultImage}
-                    buttonHandler={handleButtonClick}
+                    buttonHandler={handleArtistsClick}
                 />
-                <p> Hello guys</p>
+                <ImageGrid
+                    title="your favourites"
+                    songs={topSongs}
+                    buttonHandler={handleSongsClick}
+                />
             </nav>
         </div>
     );

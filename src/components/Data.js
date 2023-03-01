@@ -3,7 +3,8 @@ import ButtonGroup from "./ButtonGroup";
 import { COLORS } from "../consts";
 import "../styles/Data.css"
 
-import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell, Label } from 'recharts';
+import { Div } from "../style";
 import {
     Radar,
     RadarChart,
@@ -96,7 +97,7 @@ function getRadarData(genreDict) {
         let max = 0;
         let data = [];
         Object.keys(genreDict).map(function (key) {
-            if(genreDict[key] >= max) {
+            if (genreDict[key] >= max) {
                 max = genreDict[key] + 1;
             }
             return 0
@@ -132,30 +133,37 @@ function Data({ title, artists, buttonHandler }) {
 
     function renderRadarChart(data) {
         return (
-            <RadarChart
-                width={900}
-                height={800}
-                cx={450}
-                cy={400}
-                outerRadius={300}
-                data={data}
-            >
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={90} domain={[0, data[0].fullMark]}/>
-                <Radar
-                    dataKey="count"
-                    stroke="#A56894"
-                    fill="#A56894"
-                    fillOpacity={0.8}
-                />
-            </RadarChart>
+            <Div className="chart">
+                <RadarChart
+                    width={900}
+                    height={800}
+                    cx="50%" cy="50%"
+                    outerRadius={250}
+                    data={data}
+                    sca
+                >
+                    <PolarGrid strokeWidth={3} color="#ffffff" />
+                    <PolarAngleAxis
+                        dataKey="subject"
+                        color="#F1E4CD"
+                        strokeWidth={3}
+                        tick={{fill: '#F1E4CD'}}
+                    />
+                    <Radar
+                        dataKey="count"
+                        stroke="#A56894"
+                        fill="#A56894"
+                        fillOpacity={0.8}
+                    />
+                </RadarChart>
+            </Div>
         )
     }
 
     try {
         genreDict = getGenreData(artists);
         pieData = getPieChartData(genreDict);
+        pieData = false
         radarData = getRadarData(genreDict);
     } catch (error) {
         console.error("Error in data processing: ", error);
@@ -167,9 +175,9 @@ function Data({ title, artists, buttonHandler }) {
             <div className="button">
                 <ButtonGroup buttons={buttons} onButtonClick={handleButtonClick} />
             </div>
-            <div>
+            <div className="chart">
                 {pieData && renderPieChart(pieData)}
-                {radarData.length !== 0  && renderRadarChart(radarData)}
+                {radarData.length !== 0 && renderRadarChart(radarData)}
             </div>
         </div>
     )

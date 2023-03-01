@@ -1,5 +1,5 @@
 export const CLIENT_ID = "6473932552584932a3ec9920a5d48230"
-export const REDIRECT_URI = "https://spotify-app-henna.vercel.app/"
+export const REDIRECT_URI = "https://spotify-app-henna.vercel.app/#"
 export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
 export const RESPONSE_TYPE = "token"
 

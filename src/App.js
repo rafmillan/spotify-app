@@ -52,7 +52,7 @@ export default function App() {
     }
 
     return (
-        <div className="w-screen bg-bg-gray text-bone">
+    <div className="p-safe w-screen bg-bg-gray text-bone">
             <div>
                 {!token ?
                     <div className="h-screen bg-bg-gray container flex flex-col mx-auto">

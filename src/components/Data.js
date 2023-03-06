@@ -3,14 +3,13 @@ import ButtonGroup from "./ButtonGroup";
 import { COLORS } from "../consts";
 import "../styles/tailwind.css"
 
-import { PieChart, Pie, Legend, Tooltip, Cell, Label } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import { Div } from "../style";
 import {
     Radar,
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
-    PolarRadiusAxis
 } from "recharts";
 
 function renderPieChart(data) {

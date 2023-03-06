@@ -1,10 +1,10 @@
 import React from "react"
-import "../styles/Footer.css"
+import "../styles/tailwind.css"
 
 export default function Footer() {
 	return (
-		<footer className="footer">
+        <div className="basis-1/4 flex flex-col items-center justify-center mt-auto" >
             (C) Raf Millan - 2023
-        </footer>
+        </div>
 	)
 }

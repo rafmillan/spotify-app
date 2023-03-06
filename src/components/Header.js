@@ -1,10 +1,12 @@
 import React from "react"
-import "../styles/Header.css"
+import "../styles/tailwind.css"
 
 export default function Header() {
 	return (
-		<h1 className="header">
-            song mood bot
-        </h1>
+        <div className="basis-1/4 flex flex-col  items-center justify-center py-8">
+            <h1 className="text-7xl font-bold text-center tracking-wide">
+                record keeper
+            </h1>
+        </div>
 	)
 }

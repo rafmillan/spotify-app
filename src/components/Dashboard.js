@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { fetchTopSongs, fetchUser, fetchTopArtists, fetchTopData} from "../Api";
-import ListView from "./TopList";
+import { Content } from "./Content";
 import AlbumWall from "./AlbumWall";
+import ArtistWall from "./ArtistWall";
 import Data from "./Data"
 
-import "../styles/Dashboard.css"
+import "../styles/tailwind.css"
 
-const artistCount = 10;
-const songCount = 12;
+const artistCount = 9;
+const songCount = 9;
 const defaultUser = { display_name: "default" };
 const defaultSongs = [];
 const defaultArtists = []
@@ -32,6 +33,7 @@ function getTimeRange(index) {
             term = "short_term";
             break;
     }
+    // console.log(term)
     return term;
 }
 
@@ -86,26 +88,49 @@ export default function Dashboard({ token }) {
 
     return (
         <div>
-            <nav className="container">
-                <h3>welcome, {user.display_name}</h3>
-                <h4>visualize your music taste using AI</h4>
-                <ListView
-                    title="your top artists"
-                    list={topArtists}
-                    image={user.images ? user.images[0].url : defaultImage}
-                    buttonHandler={handleArtistsClick}
-                />
-                <AlbumWall
-                    title="your favourites"
-                    songs={topSongs}
-                    buttonHandler={handleSongsClick}
-                />
-                <Data
-                    title="your genre breakdown"
-                    artists={topData}
-                    buttonHandler={handleDataClick}
-                />
-            </nav>
+            <h3 className="text-center text-5xl font-bold tracking-wide">
+                welcome, {user.display_name}
+            </h3>
+            <h4 className="text-center text-2xl">
+                visualize your music taste
+            </h4>
+            <Content
+                title="your top songs"
+                list={topSongs}
+                buttonHandler={handleSongsClick}
+                Component={AlbumWall}
+            />
+            <Content
+                title="your top artists"
+                list={topArtists}
+                buttonHandler={handleArtistsClick}
+                Component={ArtistWall}
+            />
+
         </div>
-    );
+    )
+    // return (
+    //     <div>
+    //         <nav>
+    //             <h3>welcome, {user.display_name}</h3>
+    //             <h4>visualize your music taste using AI</h4>
+    //             <ListView
+    //                 title="your top artists"
+    //                 list={topArtists}
+    //                 image={user.images ? user.images[0].url : defaultImage}
+    //                 buttonHandler={handleArtistsClick}
+    //             />
+    //             <AlbumWall
+    //                 title="your favourites"
+    //                 songs={topSongs}
+    //                 buttonHandler={handleSongsClick}
+    //             />
+    //             <Data
+    //                 title="your genre breakdown"
+    //                 artists={topData}
+    //                 buttonHandler={handleDataClick}
+    //             />
+    //         </nav>
+    //     </div>
+    // );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonGroup from "./ButtonGroup";
 import { COLORS } from "../consts";
-import "../styles/Data.css"
+import "../styles/tailwind.css"
 
 import { PieChart, Pie, Legend, Tooltip, Cell, Label } from 'recharts';
 import { Div } from "../style";
@@ -171,11 +171,11 @@ function Data({ title, artists, buttonHandler }) {
 
     return (
         <div>
-            <h5 className="data-title">{title}</h5>
-            <div className="button">
+            <h5>{title}</h5>
+            <div>
                 <ButtonGroup buttons={buttons} onButtonClick={handleButtonClick} />
             </div>
-            <div className="chart">
+            <div>
                 {pieData && renderPieChart(pieData)}
                 {radarData.length !== 0 && renderRadarChart(radarData)}
             </div>

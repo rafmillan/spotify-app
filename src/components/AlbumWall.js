@@ -13,7 +13,7 @@ const AlbumWall = ({ songs }) => {
                     />
                     {/* <div className="opacity-100 hover:opacity-100 -translate-y-">{song.name.toLowerCase()}</div> */}
                     <div className="flex items-center justify-center rounded-md absolute opacity-0 top-0 w-full h-full text-bone hover:opacity-100 back hover:backdrop-blur-[2px] bg-bg-gray backdrop-blur-lg bg-opacity-70">
-                        <p className="px-2 font-semibold text-center text-3xl lg:text-4xl">
+                        <p className="px-2 font-semibold text-center text-xl md:text-xl lg:text-3xl">
                             {song.name.toLowerCase()}
                         </p>
                     </div>                        

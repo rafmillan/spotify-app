@@ -25,7 +25,7 @@ export const Content = ({title, list, buttonHandler, Component}) => {
     console.log(list)
 
     return (
-        <div className="grid grid-cols-1 px-4 py-4 pt-10 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-32 lg:py-2">
+        <div className="grid grid-cols-1 px-4 py-4 pt-10 sm:max-w-xl md:max-w-full md:px-24 lg:px-64">
             <div className="flex">
                 <div className="w-1/2">
                     <h5 className="px-2 mb-2 text-4xl font-semibold leading-none lg:pt-4">

@@ -65,10 +65,10 @@ export default function App() {
                         />
                         <Footer />
                     </div> :
-                    <div className="h-full bg-bg-gray container flex flex-col">
+                    <div className="h-full bg-bg-gray container flex flex-col mx-auto">
                         <Header/>
                         <Dashboard token={token} />
-                        <div className="basis-1/4 flex flex-col  items-center justify-center pt-8">
+                        <div className="basis-1/4 flex flex-col  items-center justify-center pt-8 pb-5">
                             <button 
                                 className="w-1/5 text-sm bg-b-lpink hover:bg-b-pink active:bg-b-dpink0 text-white font-bold py-2 px-4 rounded-full"
                                 onClick={logout}

@@ -12,8 +12,6 @@ const songCount = 9;
 const defaultUser = { display_name: "default" };
 const defaultSongs = [];
 const defaultArtists = []
-const defaultImage =
-    "https://images.unsplash.com/photo-1589251204996-3367cc27f084?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3F1YXJlJTIwaW1hZ2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60";
 
 function getTimeRange(index) {
     let term = "short_term";

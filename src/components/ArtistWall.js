@@ -12,11 +12,13 @@ const ArtistWall = ({ artists }) => {
                         alt={artist.images[1].url}
                     />
                     {/* <div className="opacity-100 hover:opacity-100 -translate-y-">{song.name.toLowerCase()}</div> */}
-                    <div className="flex items-center justify-center rounded-md absolute opacity-0 top-0 w-full h-full text-bone hover:opacity-100 back hover:backdrop-blur-[2px] bg-bg-gray backdrop-blur-lg bg-opacity-70">
-                        <p className="px-2 font-semibold text-center text-xl lg:text-3xl">
-                            {artist.name.toLowerCase()}
-                        </p>
-                    </div>                        
+                    <a href={artist.external_urls.spotify} target="_blank">
+                        <div className="flex items-center justify-center rounded-md absolute opacity-0 top-0 w-full h-full text-bone hover:opacity-100 back hover:backdrop-blur-[2px] bg-bg-gray backdrop-blur-lg bg-opacity-70">
+                            <p className="px-2 font-semibold text-center text-xl lg:text-3xl">
+                                {artist.name.toLowerCase()}
+                            </p>
+                        </div>   
+                    </a>                     
                 </div>
             ))}
         </div>

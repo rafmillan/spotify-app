@@ -3,7 +3,7 @@ import { fetchTopSongs, fetchUser, fetchTopArtists, fetchTopData} from "../Api";
 import { Content } from "./Content";
 import AlbumWall from "./AlbumWall";
 import ArtistWall from "./ArtistWall";
-import Data from "./Data"
+import PieChart from "./PieChart"
 
 import "../styles/tailwind.css"
 
@@ -104,31 +104,13 @@ export default function Dashboard({ token }) {
                 buttonHandler={handleArtistsClick}
                 Component={ArtistWall}
             />
+            <Content
+                title="your top genres"
+                list={topData}
+                buttonHandler={handleDataClick}
+                Component={PieChart}
+            />
 
         </div>
     )
-    // return (
-    //     <div>
-    //         <nav>
-    //             <h3>welcome, {user.display_name}</h3>
-    //             <h4>visualize your music taste using AI</h4>
-    //             <ListView
-    //                 title="your top artists"
-    //                 list={topArtists}
-    //                 image={user.images ? user.images[0].url : defaultImage}
-    //                 buttonHandler={handleArtistsClick}
-    //             />
-    //             <AlbumWall
-    //                 title="your favourites"
-    //                 songs={topSongs}
-    //                 buttonHandler={handleSongsClick}
-    //             />
-    //             <Data
-    //                 title="your genre breakdown"
-    //                 artists={topData}
-    //                 buttonHandler={handleDataClick}
-    //             />
-    //         </nav>
-    //     </div>
-    // );
 }

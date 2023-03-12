@@ -1,6 +1,7 @@
 import ButtonGroup from "./ButtonGroup";
 import AlbumWall from "./AlbumWall";
 import ArtistWall from "./ArtistWall";
+import PieChart from "./PieChart";
 import "../styles/tailwind.css"
 
 export const Content = ({title, list, buttonHandler, Component}) => {
@@ -21,8 +22,10 @@ export const Content = ({title, list, buttonHandler, Component}) => {
         else if (Component === ArtistWall) {
             return <Component artists={list}/>
         }
+        else if (Component === PieChart) {
+            return <Component data={list}/>
+        }
     }
-    console.log(list)
 
     return (
         <div className="grid grid-cols-1 px-4 py-4 pt-10 sm:max-w-xl md:max-w-full md:px-24 lg:px-64">

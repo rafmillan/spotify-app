@@ -17,6 +17,7 @@
     "recharts": "^2.4.3",
     "styled-components": "^5.3.6",
     "tailwindcss-safe-area": "^0.2.2",
+    "victory": "^36.6.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

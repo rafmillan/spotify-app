@@ -1,5 +1,5 @@
 import React from "react";
-import { COLORS } from "../consts";
+import { PIE_COLORS} from "../consts";
 import { VictoryPie, VictoryTooltip, VictoryLegend } from 'victory';
 
 import "../styles/tailwind.css"
@@ -16,6 +16,10 @@ function countData(arr) {
     }
       
     const result = Array.from(map, ([x, y]) => ({ x, y, label: x }));
+    console.log(result)
+    // if (result.length > 10) {
+    //    result = result.slice(0, 9)
+    // }
     return result;
 }
 
@@ -30,9 +34,6 @@ function getGenreData(artists) {
             for (let j = 0; j < artists[i].genres.length; j++) {
                 totalGenreList.push(artists[i].genres[j]);
             }
-        }
-        if (totalGenreList.length > 10) {
-            totalGenreList = totalGenreList.slice(0, 10)
         }
         genreDict = countData(totalGenreList)
         return genreDict;
@@ -59,7 +60,6 @@ const PieChart = ({ data }) => {
     } catch (error) {
         console.error("Error in data processing: ", error);
     }
-    console.log(genreDict)
     console.log(legend)
 
     return (
@@ -71,13 +71,13 @@ const PieChart = ({ data }) => {
                 data={legend}
                 height={100}
                 width={200}
-                colorScale={COLORS}
+                colorScale={PIE_COLORS}
                 style={{ border: { stroke: "none" }, labels: { fontSize: 15, fill:"#F1E4CD"} }}
             />
             </div>
             <div className="w-2/3">
             <VictoryPie
-                colorScale={COLORS}
+                colorScale={PIE_COLORS}
                 data={genreDict}
                 innerRadius={100}
                 padAngle={1}
